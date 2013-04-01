@@ -434,7 +434,7 @@ class SysInfo_Core_OS_Reader_Linux implements SysInfo_OS_Reader {
 	 */
 	public function users()
 	{
-		$files = glob(SysInfo_OS_Reader_Linux::PROC_GLOB_CMDLINE, GLOB_NOSORT);
+		$files = $this->_reader->glob(SysInfo_OS_Reader_Linux::PROC_GLOB_CMDLINE);
 
 		$users = array();
 
