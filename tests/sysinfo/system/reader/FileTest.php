@@ -79,4 +79,22 @@ class SysInfo_System_Reader_FileTest extends PHPUnit_Framework_TestCase {
 		$reader = new SysInfo_System_Reader_File(vfsStream::url('etc/foo'));
 		$reader->read();
 	}
+
+	/**
+	 * @covers  SysInfo_System_Reader_File::glob
+	 */
+	public function test_it_finds_pathnames()
+	{
+		$path = realpath(__DIR__.'/../../../data/os/linux');
+
+		$reader = new SysInfo_System_Reader_File;
+
+		$expected = array(
+			$path.'/proc/1039/status',
+			$path.'/proc/1351/status',
+			$path.'/proc/4330/status',
+		);
+
+		$this->assertSame($expected, $reader->glob($path.'/proc/*/status'));
+	}
 }
