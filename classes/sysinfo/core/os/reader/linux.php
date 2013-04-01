@@ -358,10 +358,10 @@ class SysInfo_Core_OS_Reader_Linux implements SysInfo_OS_Reader {
 		);
 
 		// Get process status files
-		$files = (array) glob(SysInfo_OS_Reader_Linux::PROC_GLOB_STATUS, GLOB_NOSORT);
+		$files = $this->_reader->glob(SysInfo_OS_Reader_Linux::PROC_GLOB_STATUS);
 
 		// Total processes
-		$output['total'] = count($processes);
+		$output['total'] = count($files);
 
 		foreach ($files as $file)
 		{
@@ -434,7 +434,7 @@ class SysInfo_Core_OS_Reader_Linux implements SysInfo_OS_Reader {
 	 */
 	public function users()
 	{
-		$files = glob(SysInfo_OS_Reader_Linux::PROC_GLOB_CMDLINE, GLOB_NOSORT);
+		$files = $this->_reader->glob(SysInfo_OS_Reader_Linux::PROC_GLOB_CMDLINE);
 
 		$users = array();
 
