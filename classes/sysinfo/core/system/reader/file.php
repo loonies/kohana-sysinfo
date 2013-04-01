@@ -41,6 +41,18 @@ class SysInfo_Core_System_Reader_File implements SysInfo_System_Reader {
 	}
 
 	/**
+	 * Find pathnames matching a pattern
+	 *
+	 * @param   string  The pattern
+	 * @param   int     Flags
+	 * @return  array
+	 */
+	public function glob($pattern, $flags = GLOB_NOSORT)
+	{
+		return (array) glob($pattern, $flags);
+	}
+
+	/**
 	 * Can we read the current file?
 	 *
 	 * @return  bool

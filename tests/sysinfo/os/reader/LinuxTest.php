@@ -291,7 +291,36 @@ class SysInfo_OS_Reader_LinuxTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_procstat()
 	{
-		$this->markTestIncomplete('TODO');
+		$path = realpath(__DIR__.'/../../../data/os/linux');
+
+		$file_paths = array(
+			$path.'/proc/1039/status',
+			$path.'/proc/1351/status',
+			$path.'/proc/4330/status',
+		);
+
+		$file_reader = $this->getMockBuilder('SysInfo_System_Reader_File')
+			->setMethods(array('glob'))
+			->getMock();
+
+		$file_reader
+			->expects($this->once())
+			->method('glob')
+			->with($this->equalTo('/proc/*/status'))
+			->will($this->returnValue($file_paths));
+
+		$os_reader = new SysInfo_OS_Reader_Linux($file_reader);
+
+		$expected = array(
+			'running'  => 1,
+			'zombie'   => 0,
+			'sleeping' => 2,
+			'stopped'  => 0,
+			'total'    => 3,
+			'threads'  => 3,
+		);
+
+		$this->assertSame($expected, $os_reader->procstat());
 	}
 
 	/**
@@ -299,6 +328,25 @@ class SysInfo_OS_Reader_LinuxTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_users()
 	{
-		$this->markTestIncomplete('TODO');
+		$path = realpath(__DIR__.'/../../../data/os/linux');
+
+		$file_paths = array(
+			$path.'/proc/1404/cmdline',
+			$path.'/proc/9697/cmdline',
+		);
+
+		$file_reader = $this->getMockBuilder('SysInfo_System_Reader_File')
+			->setMethods(array('glob'))
+			->getMock();
+
+		$file_reader
+			->expects($this->once())
+			->method('glob')
+			->with($this->equalTo('/proc/*/cmdline'))
+			->will($this->returnValue($file_paths));
+
+		$os_reader = new SysInfo_OS_Reader_Linux($file_reader);
+
+		$this->assertSame(1, $os_reader->users());
 	}
 }
