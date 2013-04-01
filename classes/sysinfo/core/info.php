@@ -8,7 +8,7 @@
  * @copyright  (c) 2012, Miodrag Tokić
  * @license    MIT
  */
-class SysInfo_Core {
+class SysInfo_Core_Info {
 
 	/**
 	 * @var  array  Operating system name and version
