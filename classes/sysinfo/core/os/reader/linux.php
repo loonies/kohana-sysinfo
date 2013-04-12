@@ -209,9 +209,9 @@ class SysInfo_Core_OS_Reader_Linux implements SysInfo_OS_Reader {
 			return NULL;
 		}
 
-		list($seconds) = explode(' ', $content, 1);
+		list($uptime) = explode(' ', $content, 2);
 
-		return (int) ceil($seconds);
+		return (int) ceil($uptime);
 	}
 
 	/**
